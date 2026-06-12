@@ -1,0 +1,182 @@
+/* ===============================
+   SIDENAV BASE
+================================ */
+.sidenav {
+    background: #012a5b;
+    position: fixed;
+    top: 0;
+    width: 16.5625rem;
+    height: 100vh;
+    z-index: 1;
+
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: width 0.5s ease;
+    /* ✅ only animate width */
+}
+
+/* Collapsed */
+.sidenav-collapsed {
+    width: 5rem;
+}
+
+/* ===============================
+   LOGO SECTION
+================================ */
+.logo-container {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    padding: 0 20px;
+    color: #fff;
+    overflow: hidden;
+    /* ✅ avoids flicker */
+}
+
+.logo-text {
+    font-size: 24px;
+    font-weight: 700;
+    color: #fff;
+
+    white-space: nowrap;
+    /* ✅ prevent wrap */
+    overflow: hidden;
+
+    opacity: 1;
+    transition: opacity 0.3s ease;
+}
+
+/* Delay only when expanding */
+.sidenav:not(.sidenav-collapsed) .logo-text {
+    transition-delay: 0.25s;
+}
+
+/* ===============================
+   NAVIGATION
+================================ */
+.sidenav-nav {
+    list-style: none;
+    padding: 0.938rem;
+    margin: 0;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    height: calc(100% - 3.65rem);
+}
+
+/* Item */
+.sidenav-nav-item {
+    width: 100%;
+    margin-bottom: 0.625rem;
+}
+
+/* ===============================
+   NAV LINK
+================================ */
+.sidenav-nav-link {
+    display: flex;
+    align-items: center;
+
+    height: 3rem;
+    border-radius: 0.625rem;
+
+    color: #f3f3f3;
+    text-decoration: none;
+
+    transition: all 0.3s ease;
+}
+
+/* Hover */
+.sidenav-nav-item:hover .sidenav-nav-link {
+    background-color: #fff;
+    color: #000;
+}
+
+/* Active */
+.active {
+    background-color: #fff;
+}
+
+.active .sidenav-link-icon,
+.active .sidenav-link-text {
+    color: #000;
+}
+
+/* ===============================
+   ICON
+================================ */
+.sidenav-link-icon {
+    font-size: 22px;
+    width: 2rem;
+    min-width: 2rem;
+
+    text-align: center;
+    padding: 12px;
+}
+
+/* ===============================
+   TEXT ANIMATION
+================================ */
+
+/* Expanded state */
+.sidenav-link-text {
+    margin-left: 1.5rem;
+
+    opacity: 1;
+    transform: translateX(0);
+
+    transition:
+        opacity 0.3s ease,
+        transform 0.3s ease;
+}
+
+/* Collapsed state */
+.sidenav-collapsed .sidenav-link-text {
+    opacity: 0;
+    transform: translateX(-10px);
+
+    transition:
+        opacity 0.1s ease,
+        transform 0.1s ease;
+
+    pointer-events: none;
+}
+
+/* Delay only when expanding */
+.sidenav:not(.sidenav-collapsed) .sidenav-link-text {
+    transition-delay: 0.25s;
+}
+
+/* ===============================
+   COLLAPSED MODE ALIGNMENT
+================================ */
+
+/* Center whole link */
+.sidenav-collapsed .sidenav-nav-link {
+    justify-content: center;
+    padding: 0;
+}
+
+/* Center icon perfectly */
+
+.sidenav-collapsed .sidenav-link-icon {
+    width: auto;
+    /* ✅ remove fixed width */
+    min-width: auto;
+    padding: 0;
+    /* ✅ remove padding */
+    margin: 0;
+    /* ✅ reset everything */
+}
+
+
+/* Ensure text doesn't affect layout */
+.sidenav-collapsed .sidenav-link-text {
+
+    justify-content: center;
+    align-items: center;
+
+}

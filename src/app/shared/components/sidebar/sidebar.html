@@ -1,0 +1,38 @@
+<div class="sidenav" [class.sidenav-collapsed]="isCollapsed()">
+
+    <div class="logo-container">
+
+        <div class="logo-text" [class.collapsed]="isCollapsed()">
+
+            @if (!isCollapsed()) {
+             <span class="logo-full">Smart Store</span>
+            } @else {
+            <i class="fas fa-store logo-icon"></i>
+            }
+        </div>
+    </div>
+
+    <!-- Menu -->
+    <ul class="sidenav-nav">
+        @for (item of items; track item.routeLink) {
+        <li class="sidenav-nav-item">
+
+            <a class="sidenav-nav-link" [routerLink]="item.routeLink" routerLinkActive="active"
+                [routerLinkActiveOptions]="{ exact: true }">
+
+                <!-- Icon -->
+                <i class="sidenav-link-icon" [class]="item.icon"></i>
+
+                <!-- Label -->
+                @if (!isCollapsed()) {
+                <span class="sidenav-link-text">
+                    {{ item.label }}
+                </span>
+                }
+            </a>
+
+        </li>
+        }
+    </ul>
+
+</div>

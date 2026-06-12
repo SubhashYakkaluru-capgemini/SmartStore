@@ -1,5 +1,7 @@
-import { Component, signal } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, HostListener, OnInit, signal } from '@angular/core';
+ import { Sidebar } from "./shared/components/sidebar/sidebar";
+import { Main } from './main/main';
+import { RouterOutlet } from "@angular/router";
 
 @Component({
   selector: 'app-root',
@@ -8,5 +10,5 @@ import { RouterOutlet } from '@angular/router';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('SmartStore');
+  protected readonly title = signal('SmartStore'); 
 }
