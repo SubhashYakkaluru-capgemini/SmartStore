@@ -3,11 +3,12 @@
   margin-left: 5rem;
 
   min-height: 100vh;
-  padding: 87px 1.5rem 1.5rem; /* ✅ top = header height */
+  padding: 87px 1.5rem 1.5rem;
+  /* ✅ top = header height */
 
   transition: all 0.5s ease;
   background: #f4f7fa;
-} 
+}
 
 .body-trimmed {
   width: calc(100% - 16.5625rem);
@@ -18,6 +19,7 @@
   width: calc(100% - 5rem);
   margin-left: 5rem;
 }
+
 /* HEADER WRAPPER */
 .header-wrapper {
   position: fixed;

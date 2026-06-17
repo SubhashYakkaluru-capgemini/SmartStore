@@ -1,38 +1,60 @@
 <div class="sidenav" [class.sidenav-collapsed]="isCollapsed()">
 
+    <!-- Logo Section -->
     <div class="logo-container">
-
-        <div class="logo-text" [class.collapsed]="isCollapsed()">
-
-            @if (!isCollapsed()) {
-             <span class="logo-full">Smart Store</span>
-            } @else {
-            <i class="fas fa-store logo-icon"></i>
-            }
+        <div class="logo-box">
+            <i class="fas fa-cube"></i>
         </div>
+        @if (!isCollapsed()) {
+        <div class="logo-text">
+            <div class="logo-name">SmartStore</div>
+            <div class="logo-subtitle">DASHBOARD</div>
+        </div>
+        }
     </div>
 
-    <!-- Menu -->
+    <!-- Navigation Menu -->
     <ul class="sidenav-nav">
-        @for (item of items; track item.routeLink) {
+        @for (item of items(); track item.routeLink) {
         <li class="sidenav-nav-item">
-
             <a class="sidenav-nav-link" [routerLink]="item.routeLink" routerLinkActive="active"
                 [routerLinkActiveOptions]="{ exact: true }">
 
-                <!-- Icon -->
                 <i class="sidenav-link-icon" [class]="item.icon"></i>
 
-                <!-- Label -->
                 @if (!isCollapsed()) {
-                <span class="sidenav-link-text">
-                    {{ item.label }}
-                </span>
+                <span class="sidenav-link-text">{{ item.label }}</span>
+                @if (item.badge && item.badge > 0) {
+                <span class="item-badge">{{ item.badge }}</span>
+                }
                 }
             </a>
-
         </li>
         }
     </ul>
 
+    <!-- Low Stock Alerts -->
+    @if (!isCollapsed()) {
+    <div class="sidebar-alerts">
+        <a class="alert-link" [routerLink]="'/inventory'" routerLinkActive="active">
+            <div class="alert-box">
+                <i class="fas fa-bell"></i>
+                <span>{{ lowStockCount() }} low stock alerts</span>
+            </div>
+        </a>
+    </div>
+    }
+
+    <!-- Switch View & User Profile -->
+    @if (!isCollapsed()) {
+    <div class="sidebar-bottom">
+        <div class="user-profile">
+            <div class="user-avatar">{{ getUserInitials() }}</div>
+            <div class="user-info">
+                <div class="user-name">{{ currentUser()?.name | titlecase }}</div>
+                <div class="user-role">{{ currentUser()?.role | uppercase }}</div>
+            </div>
+        </div>
+    </div>
+    }
 </div>

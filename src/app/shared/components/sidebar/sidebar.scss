@@ -1,182 +1,331 @@
 /* ===============================
-   SIDENAV BASE
+   SIDENAV MAIN
 ================================ */
 .sidenav {
-    background: #012a5b;
-    position: fixed;
-    top: 0;
-    width: 16.5625rem;
-    height: 100vh;
-    z-index: 1;
+  background: #0f172a;
+  position: fixed;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 2px 0 12px rgba(0, 0, 0, 0.3);
+  transition: width 0.3s ease;
+  overflow: hidden;
 
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    transition: width 0.5s ease;
-    /* ✅ only animate width */
+  @media (max-width: 768px) {
+    width: 70px;
+  }
 }
 
-/* Collapsed */
 .sidenav-collapsed {
-    width: 5rem;
+  width: 70px;
 }
 
 /* ===============================
    LOGO SECTION
 ================================ */
 .logo-container {
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  padding: 24px 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  height: 74px;
+}
 
-    padding: 0 20px;
-    color: #fff;
-    overflow: hidden;
-    /* ✅ avoids flicker */
+.logo-box {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 48px;
+  height: 48px;
+  background: #14b8a6;
+  border-radius: 8px;
+  flex-shrink: 0;
+  color: #fff;
+  font-size: 24px;
 }
 
 .logo-text {
-    font-size: 24px;
+  flex: 1;
+  white-space: nowrap;
+
+  .logo-name {
+    font-size: 18px;
     font-weight: 700;
     color: #fff;
+    margin: 0;
+  }
 
-    white-space: nowrap;
-    /* ✅ prevent wrap */
-    overflow: hidden;
-
-    opacity: 1;
-    transition: opacity 0.3s ease;
-}
-
-/* Delay only when expanding */
-.sidenav:not(.sidenav-collapsed) .logo-text {
-    transition-delay: 0.25s;
+  .logo-subtitle {
+    font-size: 11px;
+    font-weight: 600;
+    color: #64748b;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    margin: 4px 0 0 0;
+  }
 }
 
 /* ===============================
-   NAVIGATION
+   NAVIGATION MENU
 ================================ */
 .sidenav-nav {
-    list-style: none;
-    padding: 0.938rem;
-    margin: 0;
+  list-style: none;
+  padding: 12px;
+  margin: 0;
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
 
-    display: flex;
-    flex-direction: column;
-    align-items: center;
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
 
-    height: calc(100% - 3.65rem);
+  &::-webkit-scrollbar-track {
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 3px;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+  }
 }
 
-/* Item */
 .sidenav-nav-item {
-    width: 100%;
-    margin-bottom: 0.625rem;
+  display: flex;
+  align-items: center;
 }
 
 /* ===============================
    NAV LINK
 ================================ */
 .sidenav-nav-link {
-    display: flex;
-    align-items: center;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 8px;
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  border: 1px solid transparent;
 
-    height: 3rem;
-    border-radius: 0.625rem;
+  &:hover {
+    background: rgba(20, 184, 166, 0.08);
+    color: #cbd5e1;
+  }
 
-    color: #f3f3f3;
-    text-decoration: none;
-
-    transition: all 0.3s ease;
-}
-
-/* Hover */
-.sidenav-nav-item:hover .sidenav-nav-link {
-    background-color: #fff;
-    color: #000;
-}
-
-/* Active */
-.active {
-    background-color: #fff;
-}
-
-.active .sidenav-link-icon,
-.active .sidenav-link-text {
-    color: #000;
+  &.active {
+    background: #14b8a6;
+    color: #0f172a;
+    font-weight: 600;
+    box-shadow: 0 4px 12px rgba(20, 184, 166, 0.25);
+  }
 }
 
 /* ===============================
-   ICON
+   ICON & TEXT
 ================================ */
 .sidenav-link-icon {
-    font-size: 22px;
-    width: 2rem;
-    min-width: 2rem;
-
-    text-align: center;
-    padding: 12px;
+  font-size: 18px;
+  width: 24px;
+  min-width: 24px;
+  text-align: center;
 }
 
-/* ===============================
-   TEXT ANIMATION
-================================ */
-
-/* Expanded state */
 .sidenav-link-text {
-    margin-left: 1.5rem;
-
-    opacity: 1;
-    transform: translateX(0);
-
-    transition:
-        opacity 0.3s ease,
-        transform 0.3s ease;
-}
-
-/* Collapsed state */
-.sidenav-collapsed .sidenav-link-text {
-    opacity: 0;
-    transform: translateX(-10px);
-
-    transition:
-        opacity 0.1s ease,
-        transform 0.1s ease;
-
-    pointer-events: none;
-}
-
-/* Delay only when expanding */
-.sidenav:not(.sidenav-collapsed) .sidenav-link-text {
-    transition-delay: 0.25s;
+  margin-left: 12px;
+  flex: 1;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
 /* ===============================
-   COLLAPSED MODE ALIGNMENT
+   BADGES
 ================================ */
-
-/* Center whole link */
-.sidenav-collapsed .sidenav-nav-link {
-    justify-content: center;
-    padding: 0;
+.item-badge {
+  background: #ef4444;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  min-width: 20px;
+  text-align: center;
+  white-space: nowrap;
 }
 
-/* Center icon perfectly */
-
-.sidenav-collapsed .sidenav-link-icon {
-    width: auto;
-    /* ✅ remove fixed width */
-    min-width: auto;
-    padding: 0;
-    /* ✅ remove padding */
-    margin: 0;
-    /* ✅ reset everything */
+.sidenav-nav-link.active .item-badge {
+  background: rgba(0, 0, 0, 0.2);
 }
 
+/* ===============================
+   ALERTS SECTION
+================================ */
+.sidebar-alerts {
+  padding: 16px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+}
 
-/* Ensure text doesn't affect layout */
-.sidenav-collapsed .sidenav-link-text {
+.alert-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 16px;
+  background: rgba(239, 68, 68, 0.1);
+  border: 1px solid rgba(239, 68, 68, 0.3);
+  border-radius: 8px;
+  color: #fca5a5;
+  font-size: 13px;
+  font-weight: 600;
 
+  i {
+    font-size: 16px;
+    color: #ef4444;
+  }
+}
+
+/* ===============================
+   BOTTOM SECTION
+================================ */
+.sidebar-bottom {
+  padding: 16px 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.switch-view {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 12px;
+  background: rgba(55, 65, 81, 0.4);
+  border-radius: 6px;
+  color: #94a3b8;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background: rgba(55, 65, 81, 0.6);
+    color: #cbd5e1;
+  }
+
+  i {
+    font-size: 14px;
+    margin-left: auto;
+  }
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 12px;
+  background: rgba(20, 184, 166, 0.08);
+  border-radius: 8px;
+}
+
+.user-avatar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: #14b8a6;
+  border-radius: 50%;
+  color: #0f172a;
+  font-weight: 700;
+  font-size: 14px;
+  flex-shrink: 0;
+}
+
+.user-info {
+  flex: 1;
+  min-width: 0;
+
+  .user-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #e2e8f0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .user-role {
+    font-size: 11px;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-top: 2px;
+  }
+}
+
+/* ===============================
+   COLLAPSED STATE
+================================ */
+.sidenav-collapsed {
+  width: 70px;
+
+  .logo-text,
+  .sidebar-alerts,
+  .sidebar-bottom {
+    display: none;
+  }
+
+  .logo-container {
+    padding: 16px;
     justify-content: center;
-    align-items: center;
+    height: 74px;
+  }
 
+  .sidenav-nav {
+    padding: 8px;
+  }
+
+  .sidenav-nav-link {
+    justify-content: center;
+  }
+
+  .sidenav-link-text {
+    display: none;
+  }
+
+  .item-badge {
+    display: none;
+  }
+}
+.alert-link {
+  text-decoration: none;
+  color: inherit;
+
+  &:hover {
+    text-decoration: none;
+    color: inherit;
+  }
+}
+/* ===============================
+   SCROLLBAR STYLING
+================================ */
+.sidenav-nav {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.1) transparent;
 }

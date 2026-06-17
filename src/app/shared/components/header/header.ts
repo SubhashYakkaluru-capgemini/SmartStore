@@ -1,20 +1,40 @@
-import { Component, inject, input, output } from '@angular/core';
-import { LayoutService } from '../../../core/services/layout-service';
+import { Component, computed, inject } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
+import { LayoutService } from '../../../core/services/layout-service';
+import { AuthService } from '../../../core/services/auth.service';
+import { NotificationService } from '../../../core/services/notification.service';
 
 @Component({
   selector: 'app-header',
-  imports: [],
+  imports: [CommonModule],
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
 export class Header {
-  layoutService = inject(LayoutService);
-  router = inject(Router);
+  private readonly layoutService = inject(LayoutService);
+  private readonly authService = inject(AuthService);
+  private readonly router = inject(Router);
+  readonly notificationService = inject(NotificationService);
+
+  readonly currentUser = this.authService.user$;
+  readonly unreadCount = this.notificationService.unreadCount;
+  showNotifications = false;
+
   toggleCollapse(): void {
     this.layoutService.toggleSidebar();
   }
-  logout() { 
+
+  toggleNotifications(): void {
+    this.showNotifications = !this.showNotifications;
+  }
+
+  markAsRead(id: string): void {
+    this.notificationService.markAsRead(id);
+  }
+
+  logout(): void {
+    this.authService.logout();
     this.router.navigate(['/login']);
   }
 }
