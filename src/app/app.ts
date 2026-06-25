@@ -1,5 +1,5 @@
 import { Component, HostListener, OnInit, signal } from '@angular/core';
- import { Sidebar } from "./shared/components/sidebar/sidebar";
+import { Sidebar } from "./shared/components/sidebar/sidebar";
 import { Main } from './main/main';
 import { RouterOutlet } from "@angular/router";
 
@@ -10,5 +10,20 @@ import { RouterOutlet } from "@angular/router";
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('SmartStore'); 
+  protected readonly title = signal('SmartStore');
+
+  private isMobile = window.innerWidth < 768;
+
+  @HostListener('window:resize', [])
+  onResize() {
+    const currentIsMobile = window.innerWidth < 768;
+
+    // Only reload when crossing breakpoint
+    if (currentIsMobile !== this.isMobile) {
+      this.isMobile = currentIsMobile;
+
+      location.reload(); // 🔥 reload app
+    }
+  }
+
 }

@@ -3,7 +3,8 @@
 <header class="header">
 
     <div class="header-left">
-        <button class="menu-btn" (click)="toggleCollapse()" title="Toggle Sidebar">
+        <button class="menu-btn me-2 d-none d-md-inline-flex" (click)="toggleCollapse()"
+            title="Toggle Sidebar">
             <i class="fas fa-bars"></i>
         </button>
     </div>
@@ -14,7 +15,7 @@
 
     <div class="header-right">
         <!-- Notifications -->
-        <div class="notification-container">
+        <div class="position-relative d-none d-md-block">
             <button class="notification-btn" (click)="toggleNotifications()" [class.has-unread]="unreadCount() > 0"
                 title="Notifications">
                 <i class="fas fa-bell"></i>
@@ -48,17 +49,15 @@
             </div>
             }
         </div>
-
         <!-- User Info -->
         @if (currentUser()) {
-        <div class="user-info">
+        <div class="user-info d-none d-md-inline-flex">
             <span class="user-name">{{ currentUser()!.name | titlecase}}</span>
             <span class="user-role">{{ currentUser()!.role | uppercase }}</span>
         </div>
         }
-
         <!-- Logout Button -->
-        <button class="logout-btn" (click)="logout()" title="Logout">
+        <button class="btn btn-outline-danger" (click)="logout()" title="Logout">
             <i class="fas fa-sign-out-alt"></i>
         </button>
     </div>

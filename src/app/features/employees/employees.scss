@@ -244,3 +244,97 @@ $white: #ffffff;
   padding: 40px;
   color: $text-secondary;
 }
+/* ======================
+   TABLET (<= 768px)
+====================== */
+@media (max-width: 768px) {
+
+  .employees-container {
+    padding: 16px;
+  }
+
+  /* Header */
+  .employees-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
+    .btn-primary {
+      width: 100%;
+    }
+  }
+
+  /* Form */
+  .employee-form {
+    grid-template-columns: 1fr;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
+
+  /* Metric */
+  .metric-card {
+    padding: 16px;
+
+    .metric-value {
+      font-size: 24px;
+    }
+  }
+
+  /* Table scroll fix */
+  .employees-section {
+    overflow-x: auto;
+  }
+
+  .employees-table {
+    min-width: 700px; /* prevents column squish */
+  }
+
+  /* Actions buttons */
+  .actions-cell {
+    flex-direction: column;
+
+    .btn-edit,
+    .btn-delete {
+      width: 100%;
+    }
+  }
+}
+
+
+/* ======================
+   MOBILE (<= 480px)
+====================== */
+@media (max-width: 480px) {
+
+  /* Header text */
+  .employees-header {
+    .header-content {
+      h1 {
+        font-size: 22px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+
+  /* Metric full width */
+  .metric-card {
+    .metric-value {
+      font-size: 22px;
+    }
+  }
+
+  /* Form card */
+  .employee-form-card {
+    padding: 16px;
+  }
+
+  /* Inputs */
+  .form-input {
+    font-size: 13px;
+  }
+}

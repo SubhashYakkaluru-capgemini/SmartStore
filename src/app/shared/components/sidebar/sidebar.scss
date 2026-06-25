@@ -287,3 +287,54 @@
   margin-top: auto;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
 }
+/* ===============================
+   MOBILE DRAWER SIDENAV
+================================ */
+@media (max-width: 768px) {
+
+  .sidenav {
+    position: fixed;
+    left: -280px; /* hidden by default */
+    width: 260px;
+    z-index: 1050;
+    transition: left 0.3s ease;
+  }
+
+  /* When opened */
+  .sidenav.mobile-open {
+    left: 0;
+  }
+
+  /* Overlay */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1040;
+  }
+
+  /* Always expanded in mobile */
+  .sidenav {
+    width: 260px !important;
+  }
+
+  .logo-text,
+  .sidebar-alerts,
+  .sidebar-bottom,
+  .sidenav-link-text,
+  .item-badge {
+    display: block !important;
+  }
+
+  .sidenav-nav-link {
+    justify-content: flex-start;
+  }
+}
+@media (max-width: 480px) {
+  .sidenav {
+    width: 220px;
+  }
+}

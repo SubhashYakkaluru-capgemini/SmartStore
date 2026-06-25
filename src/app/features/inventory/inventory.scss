@@ -399,3 +399,141 @@ $btn-color: #0f172a;
   padding: 40px;
   color: $text-secondary;
 }
+/* =====================
+   TABLET (<= 768px)
+===================== */
+@media (max-width: 768px) {
+
+  .inventory-container {
+    padding: 16px;
+  }
+
+  /* Header */
+  .inventory-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
+    .btn-primary {
+      width: 100%;
+    }
+  }
+
+  /* Metrics */
+  .metrics-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Low stock (already partly fixed, improved further) */
+  .low-stock-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+
+    .stock-status {
+      font-size: 13px;
+    }
+
+    .btn-reorder {
+      width: 100%;
+    }
+
+    .reorder-inline {
+      width: 100%;
+      flex-wrap: wrap;
+
+      .reorder-input {
+        flex: 1;
+      }
+
+      .btn-submit-small,
+      .btn-cancel-small {
+        flex: 1;
+      }
+    }
+  }
+
+  /* Products grid */
+  .products-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Product card actions */
+  .product-actions {
+    flex-direction: column;
+
+    .btn-edit,
+    .btn-delete {
+      width: 100%;
+    }
+  }
+
+  /* Form */
+  .product-form {
+    grid-template-columns: 1fr;
+  }
+}
+
+
+/* =====================
+   MOBILE (<= 480px)
+===================== */
+@media (max-width: 480px) {
+
+  /* Header text */
+  .inventory-header {
+    .header-content {
+      h1 {
+        font-size: 22px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+
+  /* Metrics stack */
+  .metrics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card {
+    padding: 16px;
+
+    .metric-value {
+      font-size: 22px;
+    }
+  }
+
+  /* Product card */
+  .product-card {
+    padding: 12px;
+  }
+
+  .product-header .product-name {
+    font-size: 14px;
+  }
+
+  .detail-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 2px;
+  }
+
+  /* Alerts */
+  .alerts-section {
+    padding: 16px;
+  }
+
+  /* Buttons */
+  .btn-primary,
+  .btn-submit {
+    width: 100%;
+  }
+
+  /* Inputs */
+  .form-input {
+    font-size: 13px;
+  }
+}

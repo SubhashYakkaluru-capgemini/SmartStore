@@ -213,3 +213,89 @@ $white: #ffffff;
   color: $text-secondary;
   font-size: 14px;
 }
+/* ======================
+   TABLET (<= 768px)
+====================== */
+@media (max-width: 768px) {
+
+  .sales-container {
+    padding: 16px;
+  }
+
+  /* Header */
+  .sales-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+
+    .btn-primary {
+      width: 100%;
+    }
+  }
+
+  /* Form layout */
+  .sales-form {
+    grid-template-columns: 1fr !important;
+  }
+
+  .btn-submit {
+    width: 100%;
+  }
+
+  /* Metrics */
+  .metrics-row {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  /* Table wrapper to allow scroll */
+  .sales-list {
+    overflow-x: auto;
+  }
+
+  .sales-table {
+    min-width: 700px; /* important: prevents squishing */
+  }
+}
+
+
+/* ======================
+   MOBILE (<= 480px)
+====================== */
+@media (max-width: 480px) {
+
+  /* Header text */
+  .sales-header {
+    .header-content {
+      h1 {
+        font-size: 22px;
+      }
+
+      p {
+        font-size: 13px;
+      }
+    }
+  }
+
+  /* Metrics stack */
+  .metrics-row {
+    grid-template-columns: 1fr;
+  }
+
+  .metric-card {
+    padding: 16px;
+
+    .metric-value {
+      font-size: 22px;
+    }
+  }
+
+  /* Form card */
+  .sales-form-card {
+    padding: 16px;
+  }
+
+  /* Inputs */
+  .form-input {
+    font-size: 13px;
+  }
+}
