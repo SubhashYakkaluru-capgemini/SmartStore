@@ -45,16 +45,12 @@
     </div>
     }
 
-    <!-- Switch View & User Profile -->
-    @if (!isCollapsed()) {
-    <div class="sidebar-bottom">
-        <div class="user-profile">
-            <div class="user-avatar">{{ getUserInitials() }}</div>
-            <div class="user-info">
-                <div class="user-name">{{ currentUser()?.name | titlecase }}</div>
-                <div class="user-role">{{ currentUser()?.role | uppercase }}</div>
-            </div>
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+        @if (!isCollapsed()) {
+        <div class="footer-content">
+            <span class="copyright">© {{ currentYear }} SmartStore.</span>
+            <span class="app-version">Version: {{ appVersion }}</span>
         </div>
+        }
     </div>
-    }
-</div>

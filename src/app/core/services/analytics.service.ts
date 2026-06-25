@@ -15,8 +15,78 @@ export class AnalyticsService {
     todayRevenue: this.salesService.todayRevenue(),
     lowStock: this.productService.lowStockCount(),
     activeProducts: this.productService.activeProductCount(),
+
+    trends: {
+      revenue: this.getRevenueTrend(),
+      today: this.getTodayTrend(),
+      lowStock: this.getLowStockTrend(),
+      products: this.getProductTrend()
+    }
   }));
 
+  private getRevenueTrend() {
+  const today = new Date();
+
+  const currentMonthStart = new Date(today.getFullYear(), today.getMonth(), 1);
+  const prevMonthStart = new Date(today.getFullYear(), today.getMonth() - 1, 1);
+  const prevMonthEnd = new Date(today.getFullYear(), today.getMonth(), 0);
+
+  const current = this.salesService.getSalesByDate(currentMonthStart, today)
+    .reduce((sum, s) => sum + s.totalAmount, 0);
+
+  const previous = this.salesService.getSalesByDate(prevMonthStart, prevMonthEnd)
+    .reduce((sum, s) => sum + s.totalAmount, 0);
+
+  const change = previous === 0 ? 100 : ((current - previous) / previous) * 100;
+
+  return {
+    value: Number(Math.abs(change).toFixed(1)),
+    isUp: change >= 0
+  };
+}
+  private getTodayTrend() {
+    const today = new Date();
+    const yesterday = new Date();
+    yesterday.setDate(today.getDate() - 1);
+
+    const todaySales = this.salesService.getSalesByDate(today, today)
+      .reduce((sum, s) => sum + s.totalAmount, 0);
+
+    const yesterdaySales = this.salesService.getSalesByDate(yesterday, yesterday)
+      .reduce((sum, s) => sum + s.totalAmount, 0);
+
+    const change = yesterdaySales === 0 ? 100 : ((todaySales - yesterdaySales) / yesterdaySales) * 100;
+
+    return {
+      value: Number(Math.abs(change).toFixed(1)),
+      isUp: change >= 0
+    };
+  }
+  private getLowStockTrend() {
+    const current = this.productService.lowStockCount();
+
+    // Simple simulation (or store previous value in signal)
+    const previous = current + 2; // assume earlier more items were low
+
+    const change = current - previous;
+
+    return {
+      value: Number(Math.abs(change)),
+      isUp: change < 0 // lower is GOOD
+    };
+  }
+  private getProductTrend() {
+    const current = this.productService.activeProductCount();
+
+    const previous = current - 2; // simulate previous
+
+    const change = current - previous;
+
+    return {
+      value: Math.abs(change),
+      isUp: change >= 0
+    };
+  }
   readonly monthlySalesData = computed(() => {
     const today = new Date();
     const startOfMonth = new Date(today.getFullYear(), today.getMonth(), 1);

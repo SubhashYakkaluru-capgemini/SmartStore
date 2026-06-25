@@ -1,9 +1,10 @@
-import { Component, computed, inject } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Router } from '@angular/router';
 import { LayoutService } from '../../../core/services/layout-service';
 import { AuthService } from '../../../core/services/auth.service';
 import { NotificationService } from '../../../core/services/notification.service';
+import { AppNotification } from '../../../core/models';
 
 @Component({
   selector: 'app-header',
@@ -11,7 +12,8 @@ import { NotificationService } from '../../../core/services/notification.service
   templateUrl: './header.html',
   styleUrl: './header.scss',
 })
-export class Header {
+export class Header implements OnInit {
+
   private readonly layoutService = inject(LayoutService);
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
@@ -19,8 +21,12 @@ export class Header {
 
   readonly currentUser = this.authService.user$;
   readonly unreadCount = this.notificationService.unreadCount;
+  readonly notifications = this.notificationService.notifications$;
+  isCollapsed = computed(() => this.layoutService.isSidebarCollapsed());
   showNotifications = false;
-
+  ngOnInit(): void {
+    console.log("notifications ", this.notifications());
+  }
   toggleCollapse(): void {
     this.layoutService.toggleSidebar();
   }

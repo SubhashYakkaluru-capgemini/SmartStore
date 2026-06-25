@@ -24,7 +24,8 @@ export class Sidebar {
   private readonly authService = inject(AuthService);
   private readonly router = inject(Router);
   private readonly productService = inject(ProductService);
-
+  currentYear = new Date().getFullYear();
+  appVersion = '1.0.0';
   isCollapsed = computed(() => this.layoutService.isSidebarCollapsed());
   isAdmin = computed(() => this.authService.isAdmin());
   currentUser = this.authService.user$;
@@ -68,6 +69,7 @@ export class Sidebar {
       badge: item.label === 'Inventory' ? this.lowStockCount() : undefined
     }));
   });
+
 
   toggleCollapse(): void {
     this.layoutService.toggleSidebar();

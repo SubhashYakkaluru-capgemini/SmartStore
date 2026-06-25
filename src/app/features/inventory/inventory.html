@@ -5,100 +5,59 @@
       <p>Manage products and stock levels</p>
     </div>
     @if (isAdmin()) {
-      <button class="btn-primary" (click)="toggleForm()">
-        {{ showForm() ? 'Cancel' : 'Add Product' }}
-      </button>
+    <button class="btn-primary" (click)="toggleForm()">
+      {{ showForm() ? 'Cancel' : 'Add Product' }}
+    </button>
     }
   </div>
 
   @if (showForm() && isAdmin()) {
-    <div class="product-form-card">
-      <h2>{{ editingId() ? 'Edit Product' : 'Add New Product' }}</h2>
-      <form (ngSubmit)="saveProduct()" class="product-form">
-        <div class="form-group">
-          <label for="name">Product Name</label>
-          <input
-            id="name"
-            type="text"
-            class="form-input"
-            [(ngModel)]="formData().name"
-            name="name"
-            placeholder="Enter product name"
-            required
-          />
-        </div>
+  <div class="product-form-card">
+    <h2>{{ editingId() ? 'Edit Product' : 'Add New Product' }}</h2>
+    <form (ngSubmit)="saveProduct()" class="product-form">
+      <div class="form-group">
+        <label for="name">Product Name</label>
+        <input id="name" type="text" class="form-input" [ngModel]="formData().name" name="name"
+          (ngModelChange)="formData.update(f => ({ ...f, name: $event }))" placeholder="Enter product name" required />
+      </div>
 
-        <div class="form-group">
-          <label for="sku">SKU</label>
-          <input
-            id="sku"
-            type="text"
-            class="form-input"
-            [(ngModel)]="formData().sku"
-            name="sku"
-            placeholder="Enter SKU"
-            required
-          />
-        </div>
+      <div class="form-group">
+        <label for="sku">SKU</label>
+        <input id="sku" type="text" class="form-input" [ngModel]="formData().sku" name="sku" placeholder="Enter SKU"
+          (ngModelChange)="formData.update(f => ({ ...f, sku: $event }))" required />
+      </div>
 
-        <div class="form-group">
-          <label for="category">Category</label>
-          <input
-            id="category"
-            type="text"
-            class="form-input"
-            [(ngModel)]="formData().category"
-            name="category"
-            placeholder="Enter category"
-            required
-          />
-        </div>
+      <div class="form-group">
+        <label for="category">Category</label>
+        <input id="category" type="text" class="form-input" [ngModel]="formData().category" name="category"
+          (ngModelChange)="formData.update(f => ({ ...f, category: $event }))" placeholder="Enter category" required />
+      </div>
 
-        <div class="form-group">
-          <label for="price">Unit Price ($)</label>
-          <input
-            id="price"
-            type="number"
-            class="form-input"
-            [(ngModel)]="formData().price"
-            name="price"
-            placeholder="Enter unit price"
-            step="0.01"
-            required
-          />
-        </div>
+      <div class="form-group">
+        <label for="price">Unit Price ($)</label>
+        <input id="price" type="number" class="form-input" [ngModel]="formData().price" name="price"
+          (ngModelChange)="formData.update(f => ({ ...f, price: $event }))" placeholder="Enter unit price" step="0.01"
+          required />
+      </div>
 
-        <div class="form-group">
-          <label for="quantity">Quantity</label>
-          <input
-            id="quantity"
-            type="number"
-            class="form-input"
-            [(ngModel)]="formData().quantity"
-            name="quantity"
-            placeholder="Enter quantity"
-            required
-          />
-        </div>
+      <div class="form-group">
+        <label for="quantity">Quantity</label>
+        <input id="quantity" type="number" class="form-input" [ngModel]="formData().quantity" name="quantity"
+          (ngModelChange)="formData.update(f => ({ ...f, quantity: $event }))" placeholder="Enter quantity" required />
+      </div>
 
-        <div class="form-group">
-          <label for="reorderLevel">Reorder Level</label>
-          <input
-            id="reorderLevel"
-            type="number"
-            class="form-input"
-            [(ngModel)]="formData().reorderLevel"
-            name="reorderLevel"
-            placeholder="Low stock threshold"
-            required
-          />
-        </div>
+      <div class="form-group">
+        <label for="reorderLevel">Reorder Level</label>
+        <input id="reorderLevel" type="number" class="form-input" [ngModel]="formData().reorderLevel"
+          (ngModelChange)="formData.update(f => ({ ...f, reorderLevel: $event }))" name="reorderLevel"
+          placeholder="Low stock threshold" required />
+      </div>
 
-        <button type="submit" class="btn-submit" [disabled]="!isFormValid()">
-          {{ editingId() ? 'Update' : 'Add' }} Product
-        </button>
-      </form>
-    </div>
+      <button type="submit" class="btn-submit" [disabled]="!isFormValid()">
+        {{ editingId() ? 'Update' : 'Add' }} Product
+      </button>
+    </form>
+  </div>
   }
 
   <div class="metrics-grid">
@@ -117,102 +76,91 @@
   </div>
 
   @if (lowStockProducts().length > 0) {
-    <div class="alerts-section">
-      <h2>⚠️ Low Stock Alert</h2>
-      <div class="low-stock-list">
-        @for (product of lowStockProducts(); track product.id) {
-          <div class="low-stock-item">
-            <div class="item-info">
-              <div class="item-name">{{ product.name }}</div>
-              <div class="item-sku">SKU: {{ product.sku }}</div>
-            </div>
-            <div class="stock-status">
-              Stock: <strong>{{ product.quantity }}/{{ product.reorderLevel }}</strong>
-            </div>
-            @if (isAdmin()) {
-              @if (!reorderProductId() || reorderProductId() !== product.id) {
-                <button
-                  class="btn-reorder"
-                  (click)="openReorderForm(product.id)"
-                >
-                  Reorder
-                </button>
-              } @else {
-                <div class="reorder-inline">
-                  <input
-                    type="number"
-                    class="reorder-input"
-                    [(ngModel)]="reorderQuantity"
-                    min="1"
-                    placeholder="Qty"
-                  />
-                  <button class="btn-submit-small" (click)="reorderProduct()">
-                    OK
-                  </button>
-                  <button
-                    class="btn-cancel-small"
-                    (click)="reorderProductId.set(null)"
-                  >
-                    Cancel
-                  </button>
-                </div>
-              }
-            }
-          </div>
+  <div class="alerts-section">
+    <h2>⚠️ Low Stock Alert</h2>
+    <div class="low-stock-list">
+      @for (product of lowStockProducts(); track product.id) {
+      <div class="low-stock-item">
+        <div class="item-info">
+          <div class="item-name">{{ product.name }}</div>
+          <div class="item-sku">SKU: {{ product.sku }}</div>
+        </div>
+        <div class="stock-status">
+          Stock: <strong>{{ product.quantity }}/{{ product.reorderLevel }}</strong>
+        </div>
+        @if (isAdmin()) {
+        @if (!reorderProductId() || reorderProductId() !== product.id) {
+        <button class="btn-reorder" (click)="openReorderForm(product.id)">
+          Reorder
+        </button>
+        } @else {
+        <div class="reorder-inline">
+          <input type="number" class="reorder-input" [ngModel]="reorderQuantity()"
+            (ngModelChange)="reorderQuantity.set($event)" name="reorderQty" min="1" placeholder="Qty" />
+          <button class="btn-submit-small" (click)="reorderProduct()">
+            OK
+          </button>
+          <button class="btn-cancel-small" (click)="reorderProductId.set(null)">
+            Cancel
+          </button>
+        </div>
+        }
         }
       </div>
+      }
     </div>
+  </div>
   }
 
   <div class="products-section">
     <h2>All Products</h2>
     @if (products().length > 0) {
-      <div class="products-grid">
-        @for (product of products(); track product.id) {
-          <div class="product-card" [class.low-stock]="product.quantity <= product.reorderLevel">
-            <div class="product-header">
-              <div class="product-name">{{ product.name }}</div>
-              <div class="product-sku">{{ product.sku }}</div>
-            </div>
+    <div class="products-grid">
+      @for (product of products(); track product.id) {
+      <div class="product-card" [class.low-stock]="product.quantity <= product.reorderLevel">
+        <div class="product-header">
+          <div class="product-name">{{ product.name }}</div>
+          <div class="product-sku">{{ product.sku }}</div>
+        </div>
 
-            <div class="product-details">
-              <div class="detail-row">
-                <span class="label">Category:</span>
-                <span class="value">{{ product.category }}</span>
-              </div>
-              <div class="detail-row">
-                <span class="label">Price:</span>
-                <span class="value">${{ product.price | number: '1.2-2' }}</span>
-              </div>
-              <div class="detail-row">
-                <span class="label">Stock:</span>
-                <span class="value" [class.critical]="product.quantity <= product.reorderLevel">
-                  {{ product.quantity }} units
-                </span>
-              </div>
-              <div class="detail-row">
-                <span class="label">Value:</span>
-                <span class="value">
-                  ${{ (product.quantity * product.price) | number: '1.2-2' }}
-                </span>
-              </div>
-            </div>
-
-            @if (isAdmin()) {
-              <div class="product-actions">
-                <button class="btn-edit" (click)="editProduct(product.id)">
-                  Edit
-                </button>
-                <button class="btn-delete" (click)="deleteProduct(product.id)">
-                  Delete
-                </button>
-              </div>
-            }
+        <div class="product-details">
+          <div class="detail-row">
+            <span class="label">Category:</span>
+            <span class="value">{{ product.category }}</span>
           </div>
+          <div class="detail-row">
+            <span class="label">Price:</span>
+            <span class="value">${{ product.price | number: '1.2-2' }}</span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Stock:</span>
+            <span class="value" [class.critical]="product.quantity <= product.reorderLevel">
+              {{ product.quantity }} units
+            </span>
+          </div>
+          <div class="detail-row">
+            <span class="label">Value:</span>
+            <span class="value">
+              ${{ (product.quantity * product.price) | number: '1.2-2' }}
+            </span>
+          </div>
+        </div>
+
+        @if (isAdmin()) {
+        <div class="product-actions">
+          <button class="btn-edit" (click)="editProduct(product.id)">
+            Edit
+          </button>
+          <button class="btn-delete" (click)="deleteProduct(product.id)">
+            Delete
+          </button>
+        </div>
         }
       </div>
+      }
+    </div>
     } @else {
-      <p class="empty-message">No products found.</p>
+    <p class="empty-message">No products found.</p>
     }
   </div>
 </div>

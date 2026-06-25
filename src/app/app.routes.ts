@@ -8,9 +8,6 @@ export const routes: Routes = [
             import('./features/auth/login/login')
                 .then(m => m.Login)
     },
-    
-
-    // ✅ Protected app layout
     {
         path: '',
         canActivate: [authGuard],
@@ -48,8 +45,7 @@ export const routes: Routes = [
                     import('./features/analytics/analytics')
                         .then(m => m.Analytics)
             },
-
-            // ✅ default redirect
+            // default redirect
             {
                 path: '',
                 redirectTo: 'dashboard',
@@ -58,7 +54,7 @@ export const routes: Routes = [
         ]
     },
 
-    // ✅ fallback
+    // fallback
     {
         path: '**',
         redirectTo: 'login'

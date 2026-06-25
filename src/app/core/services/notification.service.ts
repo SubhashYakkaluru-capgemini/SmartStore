@@ -1,19 +1,21 @@
 import { Injectable, signal, computed } from '@angular/core';
-import { Notification } from '../models';
+import { AppNotification } from '../models';
 
 @Injectable({
   providedIn: 'root'
 })
 export class NotificationService {
-  private readonly notifications = signal<Notification[]>([]);
+
+  private readonly notifications = signal<AppNotification[]>([]);
 
   readonly notifications$ = this.notifications.asReadonly();
+
   readonly unreadCount = computed(() =>
     this.notifications().filter(n => !n.read).length
   );
 
-  addNotification(notif: Omit<Notification, 'id' | 'timestamp' | 'read'>): Notification {
-    const notification: Notification = {
+  addNotification(notif: Omit<AppNotification, 'id' | 'timestamp' | 'read'>): AppNotification {
+    const notification: AppNotification = {
       ...notif,
       id: `notif_${Date.now()}`,
       timestamp: new Date(),
@@ -43,15 +45,15 @@ export class NotificationService {
     this.notifications.set([]);
   }
 
-  getNotification(id: string): Notification | undefined {
+  getNotification(id: string): AppNotification | undefined {
     return this.notifications().find(n => n.id === id);
   }
 
-  getAllNotifications(): Notification[] {
+  getAllNotifications(): AppNotification[] {
     return this.notifications();
   }
 
-  getUnreadNotifications(): Notification[] {
+  getUnreadNotifications(): AppNotification[] {
     return this.notifications().filter(n => !n.read);
   }
 }

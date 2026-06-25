@@ -40,7 +40,7 @@ export interface Sale {
   salesperson: string;
 }
 
-export interface Notification {
+export interface AppNotification {
   id: string;
   type: 'info' | 'warning' | 'error' | 'success';
   title: string;
@@ -54,4 +54,10 @@ export interface DashboardMetrics {
   todayRevenue: number;
   lowStock: number;
   activeProducts: number;
+  trends: {
+    revenue: { value: number; isUp: boolean };
+    today: { value: number; isUp: boolean };
+    lowStock: { value: number; isUp: boolean };
+    products: { value: number; isUp: boolean };
+  };
 }

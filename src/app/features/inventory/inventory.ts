@@ -33,8 +33,15 @@ export class Inventory {
   reorderQuantity = signal(0);
 
   isFormValid = computed(() => {
-    const form = this.formData();
-    return form.name && form.sku && form.price > 0 && form.category;
+    const f = this.formData();
+    return (
+      f.name.trim().length > 0 &&
+      f.sku.trim().length > 0 &&
+      f.category.trim().length > 0 &&
+      Number(f.price) > 0 &&
+      Number(f.quantity) >= 0 &&
+      Number(f.reorderLevel) >= 0
+    );
   });
 
   isAdmin = computed(() => this.authService.isAdmin());

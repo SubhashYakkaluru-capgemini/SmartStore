@@ -139,6 +139,9 @@ div[style*="height:200px"] {
 
 // Responsive adjustments for small screens
 @media (max-width: 640px) {
+  .card {
+    margin-bottom: $spacing-md;
+  }
   .card-value {
     font-size: 24px;
   }
@@ -154,4 +157,12 @@ div[style*="height:200px"] {
   .full-card {
     padding: $spacing-md;
   }
+}
+
+.card-trend.up {
+  color: #22c55e; /* green */
+}
+
+.card-trend.down {
+  color: #ef4444; /* red */
 }

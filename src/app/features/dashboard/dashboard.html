@@ -1,45 +1,57 @@
 <!-- Cards -->
-<div class="card-grid">
+<div class="p-4 row">
 
   <!-- Revenue -->
-  <div class="card">
-    <div class="card-title">Total Revenue (Jun)</div>
-    <div class="card-value">${{ totalRevenue() }}</div>
-    <div class="card-subtext">8 completed sales</div>
-    <div class="card-trend up">+12.4% vs last month</div>
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <div class="card">
+      <div class="card-title">Total Revenue (Jun)</div>
+      <div class="card-value">${{ totalRevenue() }}</div>
+      <div class="card-subtext">8 completed sales</div>
+      <div class="card-trend" [ngClass]="revenueTrend().isUp ? 'up' : 'down'">
+        {{ revenueTrend().isUp ? '+' : '-' }}{{ revenueTrend().value }}%
+        vs last month
+      </div>
+    </div>
   </div>
-
   <!-- Today's Revenue -->
-  <div class="card">
-    <div class="card-title">Today's Revenue</div>
-    <div class="card-value">${{ todayRevenue() }}</div>
-    <div class="card-subtext">2 transactions</div>
-    <div class="card-trend up">+8.1% vs yesterday</div>
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <div class="card">
+      <div class="card-title">Today's Revenue</div>
+      <div class="card-value">${{ todayRevenue() }}</div>
+      <div class="card-subtext">2 transactions</div>
+      <div class="card-trend" [ngClass]="todayTrend().isUp ? 'up' : 'down'">
+        {{ todayTrend().isUp ? '+' : '-' }}{{ todayTrend().value }}%
+        vs yesterday
+      </div>
+    </div>
   </div>
-
   <!-- Low Stock -->
-  <div class="card">
-    <div class="card-title">Low Stock Items</div>
-    <div class="card-value">{{ lowStock() }}</div>
-    <div class="card-subtext">Require reorder</div>
-    <div class="card-trend down">3 critical</div>
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <div class="card">
+      <div class="card-title">Low Stock Items</div>
+      <div class="card-value">{{ lowStock() }}</div>
+      <div class="card-subtext">Require reorder</div>
+      <div class="card-trend" [ngClass]="lowStockTrend().isUp ? 'down' : 'up'">
+        {{ lowStockTrend().value }} critical
+      </div>
+    </div>
   </div>
 
   <!-- Active Products -->
-  <div class="card">
-    <div class="card-title">Active Products</div>
-    <div class="card-value">{{ activeProducts() }}</div>
-    <div class="card-subtext">In inventory</div>
-    <div class="card-trend up">+2 added this week</div>
-  </div>
-
-  <!-- Full Width Chart Card -->
-  <div class="full-card">
-    <div class="card-title">Revenue vs Target</div>
-    <p class="card-subtext">Monthly performance 2026</p>
-
-    <!-- Placeholder chart -->
-    <div style="height:200px; display:flex; align-items:center; justify-content:center; color:#8aa0c6;">
-      Chart Placeholder
+  <div class="col-lg-3 col-md-6 col-sm-12">
+    <div class="card">
+      <div class="card-title">Active Products</div>
+      <div class="card-value">{{ activeProducts() }}</div>
+      <div class="card-subtext">In inventory</div>
+      <div class="card-trend" [ngClass]="productTrend().isUp ? 'up' : 'down'">
+        {{ productTrend().isUp ? '+' : '-' }}{{ productTrend().value }} added this week
+      </div>
     </div>
   </div>
+</div>
+<!-- Full Width Chart Card -->
+<div class="mx-4 full-card">
+  <div class="card-title">Revenue vs Target</div>
+  <p class="card-subtext">Monthly performance 2026</p>
+  <canvas id="revenueChart"></canvas>
+</div>
