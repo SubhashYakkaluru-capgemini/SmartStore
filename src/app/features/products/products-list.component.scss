@@ -1,0 +1,22 @@
+.products-list {
+  padding: 1rem;
+}
+.products-list ul {
+  list-style: none;
+  padding: 0;
+}
+.products-list li {
+  display: flex;
+  gap: 1rem;
+  padding: 0.5rem;
+  border-bottom: 1px solid #eee;
+  cursor: pointer;
+}
+.products-list .thumb {
+  width: 64px;
+  height: 64px;
+  background: #f6f6f6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
