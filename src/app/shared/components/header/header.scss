@@ -48,9 +48,6 @@
   }
 }
 
-/* ===============================
-   NOTIFICATIONS
-================================ */
 .notification-container {
   position: relative;
 }
@@ -216,9 +213,6 @@
   font-size: 13px;
 }
 
-/* ===============================
-   USER INFO
-================================ */
 .user-info {
   display: flex;
   flex-direction: column;
@@ -239,9 +233,6 @@
   }
 }
 
-/* ===============================
-   LOGOUT BUTTON
-================================ */
 .logout-btn {
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -258,4 +249,3 @@
     color: #fca5a5;
   }
 }
-

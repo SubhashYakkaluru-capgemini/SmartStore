@@ -1,11 +1,8 @@
 .body {
   width: calc(100% - 5rem);
   margin-left: 5rem;
-
   min-height: 100vh;
   padding: 87px 1.5rem 1.5rem;
-  /* ✅ top = header height */
-
   transition: all 0.5s ease;
   background: #f4f7fa;
 }
@@ -20,7 +17,6 @@
   margin-left: 5rem;
 }
 
-/* HEADER WRAPPER */
 .header-wrapper {
   position: fixed;
   top: 0;
@@ -29,19 +25,16 @@
   transition: all 0.5s ease;
 }
 
-/* DEFAULT (collapsed sidebar) */
 .header-wrapper {
   width: calc(100% - 5rem);
   margin-left: 5rem;
 }
 
-/* SIDEBAR EXPANDED */
 .header-wrapper.body-trimmed {
   width: calc(100% - 16.5625rem);
   margin-left: 16.5625rem;
 }
 
-/* SMALL SCREEN */
 .header-wrapper.body-md-screen {
   width: calc(100% - 5rem);
   margin-left: 5rem;
